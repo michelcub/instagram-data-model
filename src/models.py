@@ -31,7 +31,7 @@ class Media(Base):
     id = Column(Integer, primary_key=True)
     post_id = Column(ForeignKey('post.id'), nullable=False)
     url = Column(String, nullable=False, nullable=False)
-    type = Column(Enum("feed", "story", "reel"))
+    type = Column(Enum("FEED", "STORY", "REEL"))
 
 class Comment(Base):
     __tablename__ = "comment"
