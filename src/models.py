@@ -14,6 +14,8 @@ class User(Base):
     first_name = Column(String(30), nullable=False)
     last_name = Column(String(30), nullable=False)
     email = Column(String, nullable=False, unique=True)
+    post = relationship('Post', backref='user', lazy=True)
+    follorwer = relationship('Follower', backref='user', lazy=True)
 
 class Follower(Base):
     __tablename__ = "follower"
@@ -30,8 +32,9 @@ class Media(Base):
     __tablename__ = "media"
     id = Column(Integer, primary_key=True)
     post_id = Column(ForeignKey('post.id'), nullable=False)
-    url = Column(String, nullable=False, nullable=False)
+    url = Column(String, nullable=False)
     type = Column(Enum("FEED", "STORY", "REEL"))
+    post = relationship('Post', backref='media', lazy=True)
 
 class Comment(Base):
     __tablename__ = "comment"
@@ -39,10 +42,8 @@ class Comment(Base):
     comment = Column(String, nullable=False)
     post_id = Column(ForeignKey('post.id'), nullable=False)
     author_id = Column(ForeignKey('user.id'), nullable=False)
+    post = relationship('Post', backref='comment', lazy=True)
 
-
-def to_dict(self):
-    return {}
 
 ## Draw from SQLAlchemy base
 try:
